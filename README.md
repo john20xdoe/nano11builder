@@ -21,6 +21,45 @@ What is removed:
 
 Everything Nano11 Removes
 
+## Building in GitHub Actions
+
+**Yes, you can create Windows 11 ISOs in GitHub Actions!** 
+
+GitHub Actions provides Windows Server runners that include all necessary tools (DISM, PowerShell, etc.) to build Nano11 ISOs in the cloud.
+
+### How to use GitHub Actions:
+
+1. Go to the **Actions** tab in your GitHub repository
+2. Select the **"Build Nano11 ISO"** workflow
+3. Click **"Run workflow"**
+4. Configure the workflow:
+   - **ISO URL**: Provide a direct download link to a Windows 11 ISO
+   - **Architecture**: Choose x64 or arm64
+   - **Edition**: Choose standard or copilot edition
+   - **Image Index**: Select the Windows edition (usually 1 for Home, 6 for Pro)
+5. Click **"Run workflow"** button
+6. Wait for the build to complete (typically 20-40 minutes)
+7. Download the resulting ISO from the **Artifacts** section
+
+### Key Benefits:
+
+- ✓ No local Windows machine needed
+- ✓ Automated and reproducible builds
+- ✓ DISM and other tools pre-installed
+- ✓ Build logs available for troubleshooting
+- ✓ Can build both x64 and ARM64 versions
+
+### Limitations:
+
+- GitHub Actions artifact size limit: 10GB per artifact
+- Artifact retention: 7 days by default (configurable)
+- Requires a valid Windows 11 ISO URL for download
+- Free GitHub accounts have monthly Actions minutes limits
+
+### Running without an ISO URL:
+
+You can run the workflow without providing an ISO URL to verify that your environment is correctly configured. The workflow will display system information and confirm that all tools are available.
+
 ARM64 Support:
 
 ARM64 versions of the scripts are now available:
