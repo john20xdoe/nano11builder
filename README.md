@@ -21,8 +21,25 @@ What is removed:
 
 Everything Nano11 Removes
 
+ARM64 Support:
+
+ARM64 versions of the scripts are now available:
+- `Nano11Builder_arm64.bat` - ARM64 version of the main script
+- `nano11builder_copilot_arm64.bat` - ARM64 version of the Copilot edition
+
+These scripts are adapted to work with Windows 11 ARM64 images by:
+- Using arm64 architecture in package names instead of amd64
+- Removing wow64 (32-bit compatibility) references not applicable to ARM64
+- Adjusting paths for ARM64 architecture (e.g., no "Program Files (x86)" folder)
+
+To use the ARM64 scripts:
+1. Download a Windows 11 ARM64 ISO
+2. Mount the ISO
+3. Run either `Nano11Builder_arm64.bat` or `nano11builder_copilot_arm64.bat`
+4. Follow the same instructions as the x64 version
+
 Known issues:
 
-1. Only en-us x64 is supported as of now. This can be easily fixable by the end user, just by replacing every instance of en-us with the language needed (like ro-RO and so on), and every x64 instance with arm64.
+1. Only en-us language is supported as of now. This can be easily fixable by the end user, just by replacing every instance of en-us with the language needed (like ro-RO and so on).
 
 And that's pretty much it for now!
