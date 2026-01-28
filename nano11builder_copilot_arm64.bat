@@ -109,7 +109,6 @@ echo Removing TTS:
 dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-LanguageFeatures-TextToSpeech-en-us-Package~31bf3856ad364e35~arm64~~10.0.22621.1265 > nul
 echo Removing Media Player Legacy:
 dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-MediaPlayer-Package~31bf3856ad364e35~arm64~~10.0.22621.1265 > nul
-dism /image:c:\scratchdir /Remove-Package /PackageName:Microsoft-Windows-MediaPlayer-Package~31bf3856ad364e35~arm64~~10.0.22621.1265 > nul
 
 echo Removing OneDrive:
 takeown /f C:\scratchdir\Windows\System32\OneDriveSetup.exe
