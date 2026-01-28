@@ -58,10 +58,10 @@ jobs:
         Write-Host "This workflow demonstrates that you CAN build Nano11 ISOs in GitHub Actions!"
         Write-Host ""
         Write-Host "GitHub Actions provides:"
-        Write-Host "  ✓ Windows Server runners with DISM pre-installed"
-        Write-Host "  ✓ Sufficient disk space for ISO creation"
-        Write-Host "  ✓ PowerShell and batch script support"
-        Write-Host "  ✓ Artifact upload for distributing results"
+        Write-Host "  [OK] Windows Server runners with DISM pre-installed"
+        Write-Host "  [OK] Sufficient disk space for ISO creation"
+        Write-Host "  [OK] PowerShell and batch script support"
+        Write-Host "  [OK] Artifact upload for distributing results"
         Write-Host ""
         Write-Host "Selected Configuration:"
         Write-Host "  - Architecture: ${{ inputs.architecture }}"
@@ -109,7 +109,7 @@ jobs:
         
         # Verify mount
         if (Test-Path "${driveLetter}:\sources\install.wim") {
-          Write-Host "✓ Installation files found"
+          Write-Host "[OK] Installation files found"
         } else {
           Write-Error "Installation files not found!"
           exit 1
@@ -185,7 +185,7 @@ jobs:
         
         if (Test-Path $expectedIso) {
           $size = (Get-Item $expectedIso).Length / 1GB
-          Write-Host "✓ ISO created successfully: $expectedIso"
+          Write-Host "[OK] ISO created successfully: $expectedIso"
           Write-Host "  Size: $([math]::Round($size, 2)) GB"
           echo "OUTPUT_ISO=$expectedIso" >> $env:GITHUB_ENV
         } else {
@@ -239,20 +239,20 @@ jobs:
           Write-Host "  6. Click 'Run workflow' button"
           Write-Host ""
           Write-Host "The workflow will:"
-          Write-Host "  • Download the ISO"
-          Write-Host "  • Build the Nano11 ISO"
-          Write-Host "  • Upload it as an artifact"
+          Write-Host "  - Download the ISO"
+          Write-Host "  - Build the Nano11 ISO"
+          Write-Host "  - Upload it as an artifact"
           Write-Host ""
           Write-Host "Note: Free GitHub Actions has limits:"
-          Write-Host "  • Artifact size: Up to 10GB"
-          Write-Host "  • Artifact retention: Configurable (default 7 days)"
-          Write-Host "  • Disk space: ~14GB available on Windows runners"
+          Write-Host "  - Artifact size: Up to 10GB"
+          Write-Host "  - Artifact retention: Configurable (default 7 days)"
+          Write-Host "  - Disk space: ~14GB available on Windows runners"
         } else {
           Write-Host ""
           Write-Host "Build attempted with ISO URL: ${{ inputs.iso_url }}"
           Write-Host ""
           if (Test-Path env:OUTPUT_ISO) {
-            Write-Host "✓ Build completed successfully!"
+            Write-Host "[OK] Build completed successfully!"
             Write-Host "  Output: $env:OUTPUT_ISO"
             Write-Host "  Download from the Artifacts section"
           } else {
