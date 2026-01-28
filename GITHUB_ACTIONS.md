@@ -129,7 +129,7 @@ The workflow automatically caches downloaded ISOs to speed up subsequent builds:
 
 - **Cache Key**: Generated from a hash of the ISO URL
 - **Cache Storage**: Uses GitHub Actions cache (10GB limit per repository)
-- **Cache Duration**: Persists for 7 days or until manually cleared
+- **Cache Duration**: Automatically evicted after 7 days of inactivity
 - **Automatic**: No configuration needed
 
 ### Benefits
@@ -162,6 +162,11 @@ To clear the cache:
 3. Click the delete icon to remove specific cache entries
 
 This is useful if you need to re-download a corrupted ISO or free up cache space.
+
+**Note on Cache Eviction**: Caches are automatically evicted:
+- After 7 days of no access (not use) to the cache entry
+- When the repository exceeds 10GB total cache size (oldest entries removed first)
+- Can be manually deleted at any time
 
 ## Limitations & Considerations
 

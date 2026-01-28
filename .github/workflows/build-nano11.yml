@@ -34,7 +34,7 @@ jobs:
     runs-on: windows-latest
     permissions:
       contents: read
-      actions: read
+      actions: write  # Required for cache saving
     
     steps:
     - name: Checkout repository
@@ -86,7 +86,7 @@ jobs:
         # Create a hash of the ISO URL for the cache key
         $hash = [System.Security.Cryptography.SHA256]::Create()
         $hashBytes = $hash.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($isoUrl))
-        $hashString = [System.BitConverter]::ToString($hashBytes).Replace("-", "").Substring(0, 16)
+        $hashString = [System.BitConverter]::ToString($hashBytes).Replace("-", "").ToLower()
         
         Write-Host "ISO URL: $isoUrl"
         Write-Host "Cache key hash: $hashString"
