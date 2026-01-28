@@ -27,7 +27,9 @@ Everything Nano11 Removes
 
 GitHub Actions provides Windows Server runners that include all necessary tools (DISM, PowerShell, etc.) to build Nano11 ISOs in the cloud.
 
-### How to use GitHub Actions:
+👉 **[See detailed GitHub Actions guide](GITHUB_ACTIONS.md)** for complete instructions.
+
+### Quick Start:
 
 1. Go to the **Actions** tab in your GitHub repository
 2. Select the **"Build Nano11 ISO"** workflow
