@@ -77,8 +77,33 @@ jobs:
           Write-Host "ISO URL provided: ${{ inputs.iso_url }}"
         }
         
-    - name: Download Windows 11 ISO
+    - name: Generate ISO cache key
       if: inputs.iso_url != ''
+      id: iso-cache-key
+      shell: powershell
+      run: |
+        $isoUrl = "${{ inputs.iso_url }}"
+        # Create a hash of the ISO URL for the cache key
+        $hash = [System.Security.Cryptography.SHA256]::Create()
+        $hashBytes = $hash.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($isoUrl))
+        $hashString = [System.BitConverter]::ToString($hashBytes).Replace("-", "").Substring(0, 16)
+        
+        Write-Host "ISO URL: $isoUrl"
+        Write-Host "Cache key hash: $hashString"
+        
+        # Set the cache key as output
+        echo "cache-key=windows11-iso-$hashString" >> $env:GITHUB_OUTPUT
+        
+    - name: Restore ISO from cache
+      if: inputs.iso_url != ''
+      id: cache-iso
+      uses: actions/cache@v4
+      with:
+        path: C:\Windows11.iso
+        key: ${{ steps.iso-cache-key.outputs.cache-key }}
+        
+    - name: Download Windows 11 ISO
+      if: inputs.iso_url != '' && steps.cache-iso.outputs.cache-hit != 'true'
       shell: powershell
       run: |
         Write-Host "Downloading Windows 11 ISO..."
@@ -92,6 +117,26 @@ jobs:
         
         Write-Host "Download complete: $isoPath"
         Write-Host "File size: $((Get-Item $isoPath).Length / 1GB) GB"
+        
+    - name: Verify ISO file
+      if: inputs.iso_url != ''
+      shell: powershell
+      run: |
+        $isoPath = "C:\Windows11.iso"
+        $cacheHit = "${{ steps.cache-iso.outputs.cache-hit }}"
+        
+        if ($cacheHit -eq 'true') {
+          Write-Host "ISO restored from cache"
+        }
+        
+        if (Test-Path $isoPath) {
+          $size = (Get-Item $isoPath).Length / 1GB
+          Write-Host "[OK] ISO file exists: $isoPath"
+          Write-Host "     File size: $([math]::Round($size, 2)) GB"
+        } else {
+          Write-Error "ISO file not found at $isoPath"
+          exit 1
+        }
         
     - name: Mount Windows 11 ISO
       if: inputs.iso_url != ''
@@ -217,7 +262,9 @@ jobs:
         # Remove temporary directories
         Remove-Item -Path "C:\nano11" -Recurse -Force -ErrorAction SilentlyContinue
         Remove-Item -Path "C:\scratchdir" -Recurse -Force -ErrorAction SilentlyContinue
-        Remove-Item -Path $isoPath -Force -ErrorAction SilentlyContinue
+        
+        # Note: ISO file is preserved for caching and will be managed by actions/cache
+        Write-Host "Note: ISO file preserved at $isoPath for caching"
         
         Write-Host "Cleanup complete"
         
