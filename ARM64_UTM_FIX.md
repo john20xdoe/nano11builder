@@ -106,6 +106,8 @@ Other approaches that were evaluated but not chosen:
 
 ## References
 
+**Note**: These references were valid as of February 2026. URLs may change over time.
+
 - [Microsoft DISM Documentation](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/clean-up-the-winsxs-folder)
 - [UTM Virtual Machines Documentation](https://docs.getutm.app/)
 - [Windows on ARM Driver Requirements](https://learn.microsoft.com/en-us/windows-hardware/drivers/develop/building-arm64-drivers)
